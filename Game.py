@@ -1,6 +1,7 @@
 import pygame as py
 import random
 from Card import Card
+from cardLoader import cardLoader
 
 def main():
     py.init()
@@ -19,16 +20,7 @@ def main():
     player2 = {"health": 100, "defense": 0, "max_health": 100}
 
     # Card deck
-    deck = [
-        Card("Fireball", attack=10),
-        Card("Shield", defense=5),
-        Card("Healing Potion", healing=15),
-        Card("Lightning Strike", attack=15),
-        Card("Armor Up", defense=10),
-        Card("Blizzard", attack=20),
-        Card("Rejuvenation", healing=20),
-        Card("Barrier", defense=8),
-    ]
+    deck = cardLoader()
 
     random.shuffle(deck)
     discard_pile = []
