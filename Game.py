@@ -11,11 +11,14 @@ def main():
 
     font = py.font.SysFont(None, 36)
 
+    # Load the table image
+    table = py.image.load("Table.png").convert()
+
     # Player stats
     player1 = {"health": 100, "defense": 0, "max_health": 100}
     player2 = {"health": 100, "defense": 0, "max_health": 100}
 
-    # need excel
+    # Card deck
     deck = [
         Card("Fireball", attack=10),
         Card("Shield", defense=5),
@@ -44,15 +47,28 @@ def main():
     run = True
 
     def draw_text(text, x, y):
-        rendered = font.render(text, True, (255, 255, 255))
+        rendered = font.render(text, True, (0, 0, 0))
         screen.blit(rendered, (x, y))
 
+    def display_final_health():
+        screen.blit(table, (0, 0)) 
+        draw_text(f"Player 1 Health: {max(0, player1['health'])}", 20, 20)
+        draw_text(f"Player 2 Health: {max(0, player2['health'])}", 515, 20)
+        draw_text(f"Player 1 Defense: {max(0, player1['defense'])}", 20, 60)
+        draw_text(f"Player 2 Defense: {max(0, player2['defense'])}", 515, 60)
+        py.display.update()
+        py.time.delay(1000)
+
     while run:
-        screen.fill((0, 0, 0))
+
+        screen.blit(table, (0, 0))
 
         # Display player stats
-        draw_text(f"Player 1 Health: {player1['health']}", 20, 20)
-        draw_text(f"Player 2 Health: {player2['health']}", 515, 20)
+        draw_text(f"Player 1 Health: {max(0, player1['health'])}", 20, 20)
+        draw_text(f"Player 2 Health: {max(0, player2['health'])}", 515, 20)
+
+        draw_text(f"Player 1 Defense: {max(0, player1['defense'])}", 20, 60)
+        draw_text(f"Player 2 Defense: {max(0, player2['defense'])}", 515, 60)
 
         # Display current turn
         draw_text(f"Player {turn}'s Turn", 300, 60)
@@ -87,11 +103,13 @@ def main():
 
         # Check for win condition
         if player1["health"] <= 0:
+            display_final_health()
             draw_text("Player 2 Wins!", 300, 300)
             py.display.update()
             py.time.delay(3000)
             run = False
         elif player2["health"] <= 0:
+            display_final_health()
             draw_text("Player 1 Wins!", 300, 300)
             py.display.update()
             py.time.delay(3000)
