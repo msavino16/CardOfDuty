@@ -13,7 +13,7 @@ def main():
     font = py.font.SysFont(None, 24)
     table = py.image.load("Table.png").convert()
     
-    player1 = Player(name="Player 1",max_health=1)
+    player1 = Player(name="Player 1")
     player2 = Player(name="Player 2")
 
     deck = cardLoader()
