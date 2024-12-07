@@ -15,6 +15,17 @@ class Player:
             discard_pile.clear()
         self.hand.append(deck.pop())
 
+    def take_damage(self, damage):
+        if self.defense >= damage:
+            self.defense -= damage
+        else:
+            remaining_damage = damage - self.defense
+            self.defense = 0
+            self.health = max(0, self.health - remaining_damage)
+
+    def heal(self, amount):
+        self.health = min(self.max_health, self.health + amount)
+
     def play_card(self, card_index, opponent, discard_pile):
         if 0 <= card_index < len(self.hand):
             card = self.hand.pop(card_index)

@@ -8,24 +8,18 @@ def main():
     SCREEN_WIDTH = 800
     SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.8)
     screen = py.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    py.display.set_caption("Card Game")
+    py.display.set_caption("Card of Duty")
 
-    font = py.font.SysFont(None, 36)
-
-    # load the table image
+    font = py.font.SysFont(None, 24)
     table = py.image.load("Table.png").convert()
-
-    # Initialize players
-    player1 = Player(name="Player 1")
+    
+    player1 = Player(name="Player 1",max_health=1)
     player2 = Player(name="Player 2")
 
-    # Card deck
     deck = cardLoader()
-
     random.shuffle(deck)
     discard_pile = []
 
-    # Initial hand setup
     for _ in range(3):
         player1.draw_card(deck, discard_pile)
         player2.draw_card(deck, discard_pile)
@@ -33,54 +27,59 @@ def main():
     turn = 1
     run = True
 
-    def draw_text(text, x, y):
-        rendered = font.render(text, True, (0, 0, 0))
+    def draw_text(text, x, y, size=24, color=(0, 0, 0)):
+        font = py.font.SysFont(None, size)
+        rendered = font.render(text, True, color)
         screen.blit(rendered, (x, y))
 
     def draw_health_bar(player, x, y, width=200, height=20):
-        py.draw.rect(screen, (255, 0, 0), (x, y, width, height))  
+        py.draw.rect(screen, (255, 0, 0), (x, y, width, height))
         health_ratio = player.health / player.max_health
         current_width = int(width * health_ratio)
-        py.draw.rect(screen, (0, 255, 0), (x, y, current_width, height))  
+        py.draw.rect(screen, (0, 255, 0), (x, y, current_width, height))
 
+    def draw_card(card, x, y, card_number, width=150, height=100):
+        py.draw.rect(screen, (255, 255, 255), (x, y, width, height))
+        py.draw.rect(screen, (0, 0, 0), (x, y, width, height), 2)
+        draw_text(f"{card_number}. {card.name}", x + 10, y + 10, size=20)
+        draw_text(f"Attack: {card.attack}", x + 10, y + 40)
+        draw_text(f"Defense: {card.defense}", x + 10, y + 60)
+        draw_text(f"Healing: {card.healing}", x + 10, y + 80)
+
+    def draw_player_cards(player, x_start, y_start, card_spacing=120):
+        for i, card in enumerate(player.hand):
+            card_y = y_start + (i * card_spacing)
+            draw_card(card, x_start, card_y, card_number=i + 1)
+    
     def display_final_health():
         screen.blit(table, (0, 0))
-        draw_text(f"{player1.name}", 12, 30)
-        draw_text(f"{player2.name}", 508, 30)
-        draw_text(f" {max(0, player1.health)}", 210, 65)
-        draw_text(f" {max(0, player2.health)}", 710, 65)
-        draw_text(f"Player 1 Defense: {max(0, player1.defense)}", 12, 95)
-        draw_text(f"Player 2 Defense: {max(0, player2.defense)}", 508, 95)
-        draw_health_bar(player1, 12, 67)
-        draw_health_bar(player2, 508, 67)
+        draw_text("Player 1", 20, 10, size=28, color=(0, 0, 0))
+        draw_health_bar(player1, 20, 40)
+        draw_text(f"{player1.health}", 230, 40)
+        draw_text(f"Player 1 Defense: {player1.defense}", 20, 70)
+        draw_text("Player 2", 515, 10, size=28, color=(0, 0, 0))
+        draw_health_bar(player2, 515, 40)
+        draw_text(f"{player2.health}", 725, 40)
+        draw_text(f"Player 2 Defense: {player2.defense}", 515, 70)
         py.display.update()
         py.time.delay(1000)
 
     while run:
-
         screen.blit(table, (0, 0))
 
-        # Display player stats
-        draw_text(f"{player1.name}", 12, 30)
-        draw_text(f"{player2.name}", 508, 30)
+        draw_text("Player 1", 20, 10, size=28, color=(0, 0, 0))
+        draw_health_bar(player1, 20, 40)
+        draw_text(f"{player1.health}", 230, 40)
+        draw_text(f"Player 1 Defense: {player1.defense}", 20, 70)
+        draw_text("Player 2", 515, 10, size=28, color=(0, 0, 0))
+        draw_health_bar(player2, 515, 40)
+        draw_text(f"{player2.health}", 725, 40)
+        draw_text(f"Player 2 Defense: {player2.defense}", 515, 70)
 
-        draw_text(f" {max(0, player1.health)}", 210, 65)
-        draw_text(f" {max(0, player2.health)}", 710, 65)
+        draw_text(f"Player {turn}'s Turn", 330, 10, size=28, color=(0, 0, 0))
 
-        draw_text(f"Player 1 Defense: {max(0, player1.defense)}", 12, 95)
-        draw_text(f"Player 2 Defense: {max(0, player2.defense)}", 508, 95)
-
-        draw_health_bar(player1, 12, 67)
-        draw_health_bar(player2, 508, 67)
-
-        # Display current turn
-        draw_text(f"{player1.name if turn == 1 else player2.name}'s Turn", 300, 30)
-
-        # Display player hands
-        for i, card in enumerate(player1.hand):
-            draw_text(f"{i+1}. {card.name}", 20, 450 + i * 40)
-        for i, card in enumerate(player2.hand):
-            draw_text(f"{i+1}. {card.name}", 550, 450 + i * 40)
+        draw_player_cards(player1, 100, 200, card_spacing=120)
+        draw_player_cards(player2, 500, 200, card_spacing=120)
 
         for event in py.event.get():
             if event.type == py.QUIT:
@@ -98,13 +97,13 @@ def main():
         # Check for win condition
         if player1.is_defeated():
             display_final_health()
-            draw_text("Player 2 Wins!", 300, 300)
+            draw_text("Player 2 Wins!", 300, 300, size=36, color=(0, 0, 0))
             py.display.update()
             py.time.delay(3000)
             run = False
         elif player2.is_defeated():
             display_final_health()
-            draw_text("Player 1 Wins!", 300, 300)
+            draw_text("Player 1 Wins!", 300, 300, size=36, color=(0, 0, 0))
             py.display.update()
             py.time.delay(3000)
             run = False
