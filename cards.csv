@@ -1,0 +1,62 @@
+name,attack,defense,healing
+Fireball,10,0,0
+Shield,0,10,0
+Healing Potion,0,0,15
+Lightning Strike,15,0,0
+Armor Up,0,10,0
+Blizzard,20,0,0
+Rejuvenation,0,0,20
+Barrier,0,8,0
+Thunderstorm,18,0,0
+Iron Wall,0,15,0
+Greater Healing,0,0,25
+Earthquake,25,0,0
+Divine Shield,0,20,0
+Firestorm,30,0,0
+Magic Armor,0,12,0
+Healing Wave,0,0,18
+Frostbite,12,0,0
+Meteor Strike,35,0,0
+Mystic Barrier,0,14,0
+Life Essence,0,0,30
+Pyroblast,25,0,0
+Thunderclap,22,0,0
+Solar Flare,28,0,0
+Arcane Recovery,0,0,25
+Ice Wall,0,18,0
+Poison Cloud,15,0,-5
+Lava Burst,20,0,0
+Energy Shield,0,10,10
+Fortress,0,30,0
+Knight,5,10,0
+Phoenix Strike,20,10,5
+Elemental Fury,25,5,10
+Divine Protection,0,25,15
+Holy Smite,18,5,7
+Dragon's Breath,30,0,10
+Guardian Angel,0,20,20
+Tidal Wave,22,8,5
+Vampiric Touch,15,0,10
+Chaos Storm,28,12,0
+Arcane Shield,0,15,15
+Spirit Bond,0,10,25
+Shadow Strike,20,0,8
+Enchanted Blade,18,12,0
+Meteor Shower,35,5,5
+Iron Fist,20,10,0
+Nature’s Grace,0,10,20
+Inferno Blast,40,0,-10
+Celestial Guard,10,25,0
+Healing Aura,0,5,30
+Shocking Grasp,15,0,15
+Tempest Blade,25,8,0
+Blazing Barrier,0,18,10
+Seismic Slam,30,10,0
+Twilight Recovery,0,12,18
+Crimson Slash,20,10,5
+Starlight Surge,0,8,25
+Dark Pact,50,-10,0
+Radiant Armor,0,20,10
+Heroic Charge,35,5,5
+Etherial Veil,0,25,5
+Sacred Flame,30,0,15
