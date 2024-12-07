@@ -1,6 +1,5 @@
 import pygame as py
 import random
-from Card import Card
 from Player import Player
 from cardLoader import cardLoader
 
@@ -63,9 +62,9 @@ def main():
 
         # Display player hands
         for i, card in enumerate(player1.hand):
-            draw_text(f"{i+1}. {card.name}", 20, 150 + i * 40)
+            draw_text(f"{i+1}. {card.name}", 20, 450 + i * 40)
         for i, card in enumerate(player2.hand):
-            draw_text(f"{i+1}. {card.name}", 600, 150 + i * 40)
+            draw_text(f"{i+1}. {card.name}", 550, 450 + i * 40)
 
         for event in py.event.get():
             if event.type == py.QUIT:
