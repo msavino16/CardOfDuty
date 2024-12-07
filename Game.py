@@ -2,6 +2,7 @@ import pygame as py
 import random
 from Card import Card
 from Player import Player
+from cardLoader import cardLoader
 
 def main():
     py.init()
@@ -20,16 +21,7 @@ def main():
     player2 = Player(name="Player 2")
 
     # Card deck
-    deck = [
-        Card("Fireball", attack=10),
-        Card("Shield", defense=5),
-        Card("Healing Potion", healing=15),
-        Card("Lightning Strike", attack=15),
-        Card("Armor Up", defense=10),
-        Card("Blizzard", attack=20),
-        Card("Rejuvenation", healing=20),
-        Card("Barrier", defense=8),
-    ]
+    deck = cardLoader()
 
     random.shuffle(deck)
     discard_pile = []
@@ -67,7 +59,7 @@ def main():
         draw_text(f"Player 2 Defense: {max(0, player2.defense)}", 515, 60)
 
         # Display current turn
-        draw_text(f"{player1.name if turn == 1 else player2.name}'s Turn", 300, 60)
+        draw_text(f"{player1.name if turn == 1 else player2.name}'s Turn", 300, 30)
 
         # Display player hands
         for i, card in enumerate(player1.hand):
