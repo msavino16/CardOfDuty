@@ -45,10 +45,14 @@ def main():
 
     def display_final_health():
         screen.blit(table, (0, 0))
-        draw_text(f"Player 1 Health: {max(0, player1.health)}", 20, 20)
-        draw_text(f"Player 2 Health: {max(0, player2.health)}", 515, 20)
-        draw_text(f"Player 1 Defense: {max(0, player1.defense)}", 20, 60)
-        draw_text(f"Player 2 Defense: {max(0, player2.defense)}", 515, 60)
+        draw_text(f"{player1.name}", 12, 30)
+        draw_text(f"{player2.name}", 508, 30)
+        draw_text(f" {max(0, player1.health)}", 210, 65)
+        draw_text(f" {max(0, player2.health)}", 710, 65)
+        draw_text(f"Player 1 Defense: {max(0, player1.defense)}", 12, 95)
+        draw_text(f"Player 2 Defense: {max(0, player2.defense)}", 508, 95)
+        draw_health_bar(player1, 12, 67)
+        draw_health_bar(player2, 508, 67)
         py.display.update()
         py.time.delay(1000)
 
@@ -57,14 +61,17 @@ def main():
         screen.blit(table, (0, 0))
 
         # Display player stats
-        draw_text(f" {max(0, player1.health)}", 210, 20)
-        draw_text(f" {max(0, player2.health)}", 710, 20)
+        draw_text(f"{player1.name}", 12, 30)
+        draw_text(f"{player2.name}", 508, 30)
 
-        draw_text(f"Player 1 Defense: {max(0, player1.defense)}", 20, 60)
-        draw_text(f"Player 2 Defense: {max(0, player2.defense)}", 515, 60)
+        draw_text(f" {max(0, player1.health)}", 210, 65)
+        draw_text(f" {max(0, player2.health)}", 710, 65)
 
-        draw_health_bar(player1, 12, 22)
-        draw_health_bar(player2, SCREEN_WIDTH - 292, 22)
+        draw_text(f"Player 1 Defense: {max(0, player1.defense)}", 12, 95)
+        draw_text(f"Player 2 Defense: {max(0, player2.defense)}", 508, 95)
+
+        draw_health_bar(player1, 12, 67)
+        draw_health_bar(player2, 508, 67)
 
         # Display current turn
         draw_text(f"{player1.name if turn == 1 else player2.name}'s Turn", 300, 30)
