@@ -1,7 +1,7 @@
 import pygame as py
 import random
-from Card import Card
 from Player import Player
+from cardLoader import cardLoader
 
 def main():
     py.init()
@@ -20,16 +20,7 @@ def main():
     player2 = Player(name="Player 2")
 
     # Card deck
-    deck = [
-        Card("Fireball", attack=10),
-        Card("Shield", defense=5),
-        Card("Healing Potion", healing=15),
-        Card("Lightning Strike", attack=15),
-        Card("Armor Up", defense=10),
-        Card("Blizzard", attack=20),
-        Card("Rejuvenation", healing=20),
-        Card("Barrier", defense=8),
-    ]
+    deck = cardLoader()
 
     random.shuffle(deck)
     discard_pile = []
@@ -46,6 +37,12 @@ def main():
         rendered = font.render(text, True, (0, 0, 0))
         screen.blit(rendered, (x, y))
 
+    def draw_health_bar(player, x, y, width=200, height=20):
+        py.draw.rect(screen, (255, 0, 0), (x, y, width, height))  
+        health_ratio = player.health / player.max_health
+        current_width = int(width * health_ratio)
+        py.draw.rect(screen, (0, 255, 0), (x, y, current_width, height))  
+
     def display_final_health():
         screen.blit(table, (0, 0))
         draw_text(f"Player 1 Health: {max(0, player1.health)}", 20, 20)
@@ -60,11 +57,14 @@ def main():
         screen.blit(table, (0, 0))
 
         # Display player stats
-        draw_text(f"Player 1 Health: {max(0, player1.health)}", 20, 20)
-        draw_text(f"Player 2 Health: {max(0, player2.health)}", 515, 20)
+        draw_text(f" {max(0, player1.health)}", 210, 20)
+        draw_text(f" {max(0, player2.health)}", 710, 20)
 
         draw_text(f"Player 1 Defense: {max(0, player1.defense)}", 20, 60)
         draw_text(f"Player 2 Defense: {max(0, player2.defense)}", 515, 60)
+
+        draw_health_bar(player1, 12, 22)
+        draw_health_bar(player2, SCREEN_WIDTH - 292, 22)
 
         # Display current turn
         draw_text(f"{player1.name if turn == 1 else player2.name}'s Turn", 300, 60)
