@@ -65,9 +65,13 @@ def main():
         # Display current turn
         draw_text(f"Player {turn}'s Turn", 300, 60)
 
-        # Display player hands
-        for i, card in enumerate(player1_hand if turn == 1 else player2_hand):
+        # Display player 1 hand on the left
+        for i, card in enumerate(player1_hand):
             draw_text(f"{i+1}. {card.name}", 20, 150 + i * 40)
+
+        # Display player 2 hand on the right
+        for i, card in enumerate(player2_hand):
+            draw_text(f"{i+1}. {card.name}", 600, 150 + i * 40)
 
         for event in py.event.get():
             if event.type == py.QUIT:
