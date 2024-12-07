@@ -1,7 +1,6 @@
 import pygame as py
 import random
 from Card import Card
-from cardLoader import cardLoader
 
 def main():
     py.init()
@@ -12,15 +11,21 @@ def main():
 
     font = py.font.SysFont(None, 36)
 
-    # Load the table image
     table = py.image.load("Table.png").convert()
 
-    # Player stats
     player1 = {"health": 100, "defense": 0, "max_health": 100}
     player2 = {"health": 100, "defense": 0, "max_health": 100}
 
-    # Card deck
-    deck = cardLoader()
+    deck = [
+        Card("Fireball", attack=10),
+        Card("Shield", defense=5),
+        Card("Healing Potion", healing=15),
+        Card("Lightning Strike", attack=15),
+        Card("Armor Up", defense=10),
+        Card("Blizzard", attack=20),
+        Card("Rejuvenation", healing=20),
+        Card("Barrier", defense=8),
+    ]
 
     random.shuffle(deck)
     discard_pile = []
@@ -55,21 +60,17 @@ def main():
 
         screen.blit(table, (0, 0))
 
-        # Display player stats
+
         draw_text(f"Player 1 Health: {max(0, player1['health'])}", 20, 20)
         draw_text(f"Player 2 Health: {max(0, player2['health'])}", 515, 20)
 
         draw_text(f"Player 1 Defense: {max(0, player1['defense'])}", 20, 60)
         draw_text(f"Player 2 Defense: {max(0, player2['defense'])}", 515, 60)
 
-        # Display current turn
         draw_text(f"Player {turn}'s Turn", 300, 60)
-
-        # Display player 1 hand on the left
         for i, card in enumerate(player1_hand):
             draw_text(f"{i+1}. {card.name}", 20, 150 + i * 40)
 
-        # Display player 2 hand on the right
         for i, card in enumerate(player2_hand):
             draw_text(f"{i+1}. {card.name}", 600, 150 + i * 40)
 
@@ -97,7 +98,6 @@ def main():
                             player2_hand.append(draw_random_card())
                             turn = 1
 
-        # Check for win condition
         if player1["health"] <= 0:
             display_final_health()
             draw_text("Player 2 Wins!", 300, 300)

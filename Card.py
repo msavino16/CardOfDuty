@@ -7,30 +7,30 @@ class Card:
         self.special_ability = special_ability
 
     def apply_effect(self, target_player, current_player=None):
-        # Apply attack with overflow logic
+        # lets damage overflow into health
         if self.attack > 0:
             if target_player["defense"] > 0:
-                # Reduce defense first
+                # lower defense first
                 remaining_damage = self.attack - target_player["defense"]
                 target_player["defense"] = max(0, target_player["defense"] - self.attack)
-                # Overflow to health if damage exceeds defense
+                # overflow to health when damage is greater than defense
                 if remaining_damage > 0:
                     target_player["health"] -= remaining_damage
             else:
-                # If no defense, apply full damage to health
+                # no defense
                 target_player["health"] -= self.attack
 
-        # Apply healing to the current player
+        # healing logic
         if self.healing > 0 and current_player:
             current_player["health"] = min(
                 current_player["max_health"], current_player["health"] + self.healing
             )
 
-        # Apply defense boost to the current player
+        # defense logic
         if self.defense > 0 and current_player:
             current_player["defense"] += self.defense
 
-        # Apply special ability if present
+        # future setting for special ability
         if self.special_ability:
             self.special_ability(target_player, current_player)
 
