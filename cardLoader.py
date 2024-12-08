@@ -6,6 +6,9 @@ import pandas as pd
 from Card import Card
 
 def cardLoader():
+    """
+    Function to load in the cards into the deck used into the game from a CSV
+    """
     file_path = "cards.csv"
     df = pd.read_csv(file_path)
     deck = []
