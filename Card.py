@@ -23,11 +23,11 @@ class Card:
         
         """
 
-        if self.attack > 0:
+        if self.attack != 0:
             target_player.take_damage(self.attack)
 
-        if self.defense > 0:
+        if self.defense != 0:
             current_player.defense += self.defense
 
-        if self.healing > 0:
+        if self.healing != 0:
             current_player.heal(self.healing)
