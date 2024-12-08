@@ -1,3 +1,7 @@
+#Author: Jake Gebeline and Michael Savino
+#Date: 12/08/2024
+#Description: This file visually shows how the damge, armor, and health are manipulated depending on what card is played.
+
 import random
 
 class Player:

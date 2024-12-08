@@ -1,3 +1,7 @@
+#Author: Jake Gebeline and Michael Savino
+#Date: 12/08/2024
+#Description: This file loads the cards from an excel/csv file we have that holds the name, damage, defense, and healing.
+
 import pandas as pd
 from Card import Card
 

@@ -1,3 +1,7 @@
+#Author: Jake Gebeline and Michael Savino
+#Date: 12/08/2024
+#Description: This file holds our test cases to test specific parts of the code to help limit the amount of time we have to use for bug fixes.
+
 import pytest
 from Player import Player
 from Card import Card
