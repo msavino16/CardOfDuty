@@ -99,10 +99,11 @@ def main():
         draw_text(f"Player 2 Defense: {player2.defense}", 515, 70)
         py.display.update()
         py.time.delay(1000)
+        
 
     while run:
         # Display game background and UI
-
+        
         screen.blit(table, (0, 0))
 
         draw_text("Player 1", 20, 10, size=28, color=(0, 0, 0))
