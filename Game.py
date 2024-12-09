@@ -7,6 +7,64 @@ import random
 from Player import Player
 from cardLoader import cardLoader
 
+def draw_button(screen, text, x, y, width, height, font, color, text_color):
+    """
+    Make buttons for start game and exit game on the start menu
+    """
+    py.draw.rect(screen, color, (x, y, width, height))
+    py.draw.rect(screen, (0, 0, 0), (x, y, width, height), 2)
+    button_font = py.font.SysFont(None, 36)
+    button_text = button_font.render(text, True, text_color)
+    text_rect = button_text.get_rect(center=(x + width // 2, y + height // 2))
+    screen.blit(button_text, text_rect)
+    return x, y, width, height
+
+def start_menu(screen):
+    """
+    Makes a menu when they run the code that a description of the game, a start button, and an exit game button
+    """
+    menu_font = py.font.SysFont(None, 36)
+    title_font = py.font.SysFont(None, 50)
+    run_menu = True
+
+    while run_menu:
+        screen.fill((255, 255, 255))  
+
+        title_text = title_font.render("Card of Duty", True, (0, 0, 0))
+        screen.blit(title_text, (300, 50))
+
+        instructions = [
+            "How to Play:",
+            "- Each player starts with 3 cards.",
+            "- On your turn, play a card by pressing 1, 2, or 3.",
+            "- Cards have Attack, Defense, and Healing stats.",
+            "- Defeat your opponent by reducing their health to 0!",
+        ]
+        y_offset = 150
+        for line in instructions:
+            instruction_text = menu_font.render(line, True, (0, 0, 0))
+            screen.blit(instruction_text, (100, y_offset))
+            y_offset += 30
+
+        start_button = draw_button(screen, "Start Game", 300, 400, 200, 50, menu_font, (0, 255, 0), (0, 0, 0))
+        exit_button = draw_button(screen, "Exit Game", 300, 500, 200, 50, menu_font, (255, 0, 0), (0, 0, 0))
+
+        for event in py.event.get():
+            if event.type == py.QUIT:
+                py.quit()
+                exit()
+            if event.type == py.MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = event.pos
+                if start_button[0] <= mouse_x <= start_button[0] + start_button[2] and \
+                   start_button[1] <= mouse_y <= start_button[1] + start_button[3]:
+                    run_menu = False 
+                if exit_button[0] <= mouse_x <= exit_button[0] + exit_button[2] and \
+                   exit_button[1] <= mouse_y <= exit_button[1] + exit_button[3]:
+                    py.quit()
+                    exit()
+
+        py.display.update()
+
 def main():
     """
     The main function to initialize the game, handle game loop, 
@@ -20,6 +78,9 @@ def main():
     SCREEN_HEIGHT = int(SCREEN_WIDTH * 0.8)
     screen = py.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     py.display.set_caption("Card of Duty")
+
+    # Show the start menu
+    start_menu(screen)
 
     # Load resources and initialize fonts
     font = py.font.SysFont(None, 24)
