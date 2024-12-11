@@ -10,6 +10,30 @@ from cardLoader import cardLoader
 def draw_button(screen, text, x, y, width, height, font, color, text_color):
     """
     Make buttons for start game and exit game on the start menu
+    
+    :param screen: Screen to be used for the game
+    :type screen: Surface
+
+    :param text: Text on the button
+    :type text: String
+
+    :param x: X location of the button
+    :type x: int
+    
+    :param y: Y location of the button
+    :type y: int
+    
+    :param width: Width of the button
+    :type width: int
+
+    :param screen: height of the button
+    :type height: int
+
+    :param color: color for the button
+    :type color: Tuple
+
+    :param text_color: color for the text
+    :type text_color: Tuple
     """
     py.draw.rect(screen, color, (x, y, width, height))
     py.draw.rect(screen, (0, 0, 0), (x, y, width, height), 2)
@@ -22,6 +46,10 @@ def draw_button(screen, text, x, y, width, height, font, color, text_color):
 def start_menu(screen):
     """
     Makes a menu when they run the code that a description of the game, a start button, and an exit game button
+    
+    :param screen: Screen to be used for the game
+    :type screen: Surface
+
     """
     menu_font = py.font.SysFont(None, 36)
     title_font = py.font.SysFont(None, 50)
@@ -82,7 +110,7 @@ def main():
     # Show the start menu
     start_menu(screen)
 
-    # Load resources and initialize fonts
+    # Load table and initialize fonts
     font = py.font.SysFont(None, 24)
     table = py.image.load("Table.png").convert()
     
@@ -107,7 +135,23 @@ def main():
     def draw_text(text, x, y, size=24, color=(0, 0, 0)):
         """
         Draws text on the screen at the specified coordinates.
+        
+        :param text: Text to be written
+        :type text: String
+        
+        :param x: X location of the text
+        :type x: int
+        
+        :param y: Y location of the text
+        :type y: int
+        
+        :param size: Font Size
+        :type size: int
+        
+        :param color: color of text to be drawn
+        :type color: Tuple
         """
+
 
         font = py.font.SysFont(None, size)
         rendered = font.render(text, True, color)
@@ -116,6 +160,21 @@ def main():
     def draw_health_bar(player, x, y, width=200, height=20):
         """
         Draws the health bar for a player, showing current health relative to max health.
+        
+        :param player: Player whos health is to be displayed
+        :type player: Player
+        
+        :param x: X location of the health bar
+        :type x: int
+        
+        :param y: Y location of the health bar
+        :type y: int
+        
+        :param width: width of the health bar
+        :type width: int
+        
+        :param height: height of the health bar
+        :type height: int
         """
 
         py.draw.rect(screen, (255, 0, 0), (x, y, width, height))
@@ -126,6 +185,24 @@ def main():
     def draw_card(card, x, y, card_number, width=150, height=100):
         """
         Draws a single card on the screen with its details.
+        
+        :param card: Card to be drawn
+        :type card: Card
+        
+        :param x: X location of the card
+        :type x: int
+        
+        :param y: Y location of the card
+        :type y: int
+        
+        :param card_number: number represeting which key to press to use this card
+        :type card_number: int
+        
+        :param width: width of the card
+        :type width: int
+        
+        :param height: height of the card
+        :type height: int
         """
 
         py.draw.rect(screen, (255, 255, 255), (x, y, width, height))
@@ -138,6 +215,18 @@ def main():
     def draw_player_cards(player, x_start, y_start, card_spacing=120):
         """
         Draws all the cards in a player's hand.
+        
+        :param player: The player to recieve cards
+        :type player: Player
+        
+        :param x_start: Starting x pixel of first card
+        :type x_start: int
+        
+        :param y_start: Starting y pixel of first card
+        :type y_start: int
+        
+        :param card_spacing: How many pixels are inbetween each card
+        :type card_spacing: int
         """
 
         for i, card in enumerate(player.hand):
